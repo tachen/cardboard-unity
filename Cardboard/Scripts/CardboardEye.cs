@@ -159,12 +159,14 @@ public class CardboardEye : MonoBehaviour {
     }
 
     // Draw to the mono camera's target, or the stereo screen.
+    cam.enabled = false;
     cam.targetTexture = monoCamera.targetTexture ?? Cardboard.SDK.StereoScreen;
     if (cam.targetTexture == null) {
       // When drawing straight to screen, account for lens FOV limits.
       // Note: do this after all calls to FixProjection() which needs the unfixed rect.
       cam.rect = FixViewport(cam.rect);
     }
+    cam.enabled = true;
   }
 
   private void SetupStereo() {
